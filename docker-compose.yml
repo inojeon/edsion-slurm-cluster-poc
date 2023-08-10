@@ -1,0 +1,32 @@
+services:
+  slurmapi:
+    image: q-slurm-api:19
+    hostname: slurmapi
+    user: admin
+    volumes:
+      - shared-vol:/home/admin
+      - /Users/ino/Work/kisti/quantum/quantum_resource_api_server:/q_api
+    ports:
+      - "8000:8000"
+    expose:
+      - "8000"
+  slurmmaster:
+    image: q-slurm-master:19
+    hostname: slurmmaster
+    user: admin
+    volumes:
+      - shared-vol:/home/admin
+    ports:
+      - "6817:6817"
+      - "6818:6818"
+      - "6819:6819"
+  slurmnode1:
+    image: q-slurm-node:19
+    hostname: slurmnode1
+    user: admin
+    volumes:
+      - shared-vol:/home/admin
+    links:
+      - slurmmaster
+volumes:
+  shared-vol:
