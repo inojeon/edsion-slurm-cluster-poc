@@ -10,10 +10,10 @@ sbatch, squeue 등의 명령어 실행 가능
 - /home/admin : 사용자 홈 디렉터리
 - /PROGRAMS : 프로그램 보관 폴더
   - /qe_test : 프로그램 명 qe_test
-    - script_modeling.py : main 실행 파이썬 프로그램
-    - inputs : 샘플 입력 파일
-    - datas : 프로그램 실행시 필요한 파일들(소재 구조 파일)
-    - batchscript : slurm batch 스크립트 파일
+    - /script_modeling.py : main 실행 파이썬 프로그램
+    - /inputs : 샘플 입력 파일
+    - /datas : 프로그램 실행시 필요한 파일들(소재 구조 파일)
+    - /batchscript : slurm batch 스크립트 파일
 
 # docker-compose 실행
 
