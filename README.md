@@ -42,3 +42,25 @@ sbatch batch.sh
 ```
 docker-compose down
 ```
+
+# strigger test
+
+작업 완료후 특정 스크립트를 실행하는 명령어가 있음
+
+strigger
+다양한 이벤트 발생시 트리거를 설정 하는 명령어 그중에 작업 관련된 명령도 있음.
+
+https://slurm.schedmd.com/strigger.html
+
+작업 아이디가 1237인경우
+
+```
+strigger --set --jobid=1237 --fini --program=/home/joe/job_fini
+```
+
+하지만, 다음과 같은 에러 발생 ..
+slurm_set_trigger: Access/permission denied
+
+sudo strigger --set --jobid=10 --fini --program=/home/admin/job/test/fini.sh
+strigger --set --jobid=8 --fini --program=/home/admin/job/test/fini.sh
+strigger --get --jobid=8
