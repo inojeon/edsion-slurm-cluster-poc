@@ -59,8 +59,12 @@ strigger --set --jobid=1237 --fini --program=/home/joe/job_fini
 ```
 
 하지만, 다음과 같은 에러 발생 ..
-slurm_set_trigger: Access/permission denied
 
-sudo strigger --set --jobid=10 --fini --program=/home/admin/job/test/fini.sh
-strigger --set --jobid=8 --fini --program=/home/admin/job/test/fini.sh
-strigger --get --jobid=8
+```
+slurm_set_trigger: Access/permission denied
+```
+
+```
+strigger --set --jobid=10 --fini --program=/home/admin/job/test/fini.sh
+strigger --get --jobid=10
+```
