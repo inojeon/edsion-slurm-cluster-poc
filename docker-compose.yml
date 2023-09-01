@@ -6,11 +6,12 @@ services:
     volumes:
       - shared-vol:/home/admin
       - shared-program:/PROGRAMS
-      - /Users/ino/Work/kisti/edison/2023/slurm-api:/slurm_api
     ports:
       - "8000:8000"
+      - "3000:3000"
     expose:
       - "8000"
+      - "3000"
   slurmmaster:
     image: edison-slurm-master:19
     hostname: slurmmaster

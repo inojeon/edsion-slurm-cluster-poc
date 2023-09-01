@@ -17,11 +17,39 @@ COPY docker-entrypoint.sh /etc/slurm-llnl/
 WORKDIR /home/admin
 
 EXPOSE 8000
+EXPOSE 3000
 
 ENV USER admin
 ENV SHELL bash
 
-RUN pip3 install fastapi "uvicorn[standard]" multiport
+RUN mkdir -p /server
+
+WORKDIR /server
+
+RUN apt install curl -y
+RUN curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh
+RUN sudo bash nodesource_setup.sh 
+RUN apt -qq install nodejs -y
+RUN npm i -g pnpm
+
+WORKDIR /server
+
+RUN set -ex \
+    && git clone https://github.com/inojeon/slurm-api.git
+
+WORKDIR /server/slurm-api
+RUN pip3 install -r requirements.txt
+
+
+WORKDIR /server
+RUN set -ex \
+    && git clone https://github.com/inojeon/edison-workbench.git \
+    && cd edison-workbench \
+    && pnpm i
+
+COPY .env.local /server/edison-workbench/
+
+WORKDIR /home/admin
 
 
 ENTRYPOINT ["/etc/slurm-llnl/docker-entrypoint.sh"]

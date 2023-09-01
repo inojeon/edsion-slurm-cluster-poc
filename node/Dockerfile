@@ -17,15 +17,7 @@ COPY docker-entrypoint.sh /etc/slurm-llnl/
 
 EXPOSE 6817 6818 6819  
 
-RUN apt install --no-install-recommends \
-    autoconf \
-    ca-certificates \
-    gfortran \
-    libblas3 \
-    libc6 \
-    libfftw3-dev \
-    libgcc-s1 \
-    liblapack-dev -y 
+RUN apt update -y  && apt install --no-install-recommends autoconf ca-certificates gfortran libblas3 libc6 libfftw3-dev libgcc-s1 liblapack-dev -y 
 
 
 RUN set -ex \
@@ -42,6 +34,8 @@ RUN pip3 install tomli ase
 
 COPY qe_demo/ /PROGRAMS/qe_demo/
 RUN chmod -R 755 /PROGRAMS/qe_demo/datas/*
+
+COPY repository/ /tmp/repository/
 
 
 ENTRYPOINT ["/etc/slurm-llnl/docker-entrypoint.sh"]
