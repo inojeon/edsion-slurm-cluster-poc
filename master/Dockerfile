@@ -13,6 +13,8 @@ RUN apt install sudo -y && apt install python3.9 python3-pip -y \
     && echo "admin     ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 # RUN apt update -y && apt install libopenmpi-dev -y && pip3 install mpi4py
 
+RUN sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1
+
 COPY slurm.conf /etc/slurm-llnl/
 COPY cgroup.conf /etc/slurm-llnl/
 COPY docker-entrypoint.sh /etc/slurm-llnl/

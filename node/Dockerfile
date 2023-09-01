@@ -4,11 +4,6 @@ RUN apt update -y && apt install munge vim build-essential git wget mariadb-serv
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt install slurm-client slurmd -y
-RUN apt install sudo -y && apt install python3.9 python3-pip -y \
-    && useradd -m admin -s /usr/bin/bash -d /home/admin \
-    && echo "admin:admin" | chpasswd \
-    && adduser admin sudo \
-    && echo "admin     ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 # RUN apt install slurmd -y
 
 COPY slurm.conf /etc/slurm-llnl/
@@ -17,9 +12,16 @@ COPY docker-entrypoint.sh /etc/slurm-llnl/
 
 EXPOSE 6817 6818 6819  
 
+RUN apt install sudo -y && apt install python3.9 python3-pip -y \
+    && useradd -m admin -s /usr/bin/bash -d /home/admin \
+    && echo "admin:admin" | chpasswd \
+    && adduser admin sudo \
+    && echo "admin     ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+
 RUN apt update -y  && apt install --no-install-recommends autoconf ca-certificates gfortran libblas3 libc6 libfftw3-dev libgcc-s1 liblapack-dev -y 
 
-
+RUN sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1
 RUN set -ex \
     && wget https://gitlab.com/QEF/q-e/-/archive/qe-7.2/q-e-qe-7.2.tar.gz \
     && tar -zxvf q-e-qe-7.2.tar.gz \
@@ -32,7 +34,13 @@ RUN set -ex \
 
 RUN pip3 install tomli ase
 
+
+ENV USER admin
+ENV SHELL bash
+
 COPY qe_demo/ /PROGRAMS/qe_demo/
+RUN chown -R admin:admin /PROGRAMS
+
 RUN chmod -R 755 /PROGRAMS/qe_demo/datas/*
 
 COPY repository/ /tmp/repository/
