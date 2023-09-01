@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "SETUP": {
+      "type": "object",
+      "properties": {
+        "job_type": { "type": "string" },
+        "npoints": { "type": "integer" },
+        "path": { "type": "string" }
+      },
+      "required": ["job_type", "npoints", "path"]
+    },
+    "SYSTEM": {
+      "type": "object",
+      "properties": {
+        "ecutwfc": { "type": "integer" },
+        "ecutrho": { "type": "integer" },
+        "degauss": { "type": "number" },
+        "input_dft": { "type": "string" },
+        "nbnd": { "type": "integer" }
+      },
+      "required": ["degauss", "ecutrho", "ecutwfc", "input_dft", "nbnd"]
+    },
+    "ELECTRONS": {
+      "type": "object",
+      "properties": {
+        "conv_thr": { "type": "number" },
+        "electron_maxstep": { "type": "integer" },
+        "mixing_beta": { "type": "number" },
+        "mixing_mode": { "type": "string" },
+        "scf_must_converge": { "type": "string" },
+        "startingwfc": { "type": "string" }
+      },
+      "required": [
+        "conv_thr",
+        "electron_maxstep",
+        "mixing_beta",
+        "mixing_mode",
+        "scf_must_converge",
+        "startingwfc"
+      ]
+    },
+    "K_POINTS_automatic": {
+      "type": "object",
+      "properties": {
+        "nk1": { "type": "integer" },
+        "nk2": { "type": "integer" },
+        "nk3": { "type": "integer" },
+        "sk1": { "type": "integer" },
+        "sk2": { "type": "integer" },
+        "sk3": { "type": "integer" }
+      },
+      "required": ["nk1", "nk2", "nk3", "sk1", "sk2", "sk3"]
+    }
+  },
+  "required": ["ELECTRONS", "K_POINTS_automatic", "SETUP", "SYSTEM"]
+}

@@ -1,0 +1,36 @@
+{
+  "name": "qe_test",
+  "version": "0.0.1",
+  "sampleInput": [
+    {
+      "option": "--inp",
+      "path": "inputs/input.TOML"
+    },
+    {
+      "option": "--xsf",
+      "path": "inputs/input.xsf"
+    }
+  ],
+  "location": "/PROGRAMS/qe_demo",
+  "preScript": "",
+  "postSrcipt": "pw.x < simulation_1.txt \npw.x < simulation_2.txt  \nbands.x < simulation_3.txt\n",
+  "slurm": {
+    "runType": "single",
+    "nodes": 1
+  },
+  "shell": "python3",
+  "mainExe": "script_modeling.py",
+  "inputs": [
+    {
+      "option": "--inp",
+      "exec": "inp"
+    },
+    {
+      "option": "--xsf",
+      "exec": "xsf"
+    }
+  ],
+  "required": {
+    "environ": ["PROGRAMHOME"]
+  }
+}

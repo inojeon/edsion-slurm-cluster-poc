@@ -21,7 +21,7 @@ EXPOSE 8000
 ENV USER admin
 ENV SHELL bash
 
-# RUN pip3 install fastapi "uvicorn[standard]" multiport
+RUN pip3 install fastapi "uvicorn[standard]" multiport
 
 
 ENTRYPOINT ["/etc/slurm-llnl/docker-entrypoint.sh"]

@@ -6,7 +6,7 @@ services:
     volumes:
       - shared-vol:/home/admin
       - shared-program:/PROGRAMS
-    # entrypoint: /bin/bash
+      - /Users/ino/Work/kisti/edison/2023/slurm-api:/slurm_api
     ports:
       - "8000:8000"
     expose:
