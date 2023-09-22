@@ -1,0 +1,36 @@
+services:
+  slurmapi:
+    image: edison-slurm-api-dev:19
+    hostname: slurmapi
+    user: admin
+    volumes:
+      - shared-vol-dev:/home/admin
+      - shared-program-dev:/PROGRAMS
+      - /Users/ino/Work/kisti/edison/2023/slurm-api:/slurm-api
+    ports:
+      - "8000:8000"
+    expose:
+      - "8000"
+  slurmmaster:
+    image: edison-slurm-master:19
+    hostname: slurmmaster
+    user: admin
+    volumes:
+      - shared-vol-dev:/home/admin
+      - shared-program-dev:/PROGRAMS
+    ports:
+      - "6817:6817"
+      - "6818:6818"
+      - "6819:6819"
+  slurmnode1:
+    image: edison-slurm-node:19
+    hostname: slurmnode1
+    user: admin
+    volumes:
+      - shared-vol-dev:/home/admin
+      - shared-program-dev:/PROGRAMS
+    links:
+      - slurmmaster
+volumes:
+  shared-vol-dev:
+  shared-program-dev:
